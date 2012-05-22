@@ -2,16 +2,16 @@ module Talks
   class << self
 
     VOICES = %w(
-      Agnes Albert Alex Bad Bahh Bells Boing Bruce Bubbles Cellos
-      Deranged Fred Good Hysterical Junior Kathy Pipe Princess Ralph
-      Trinoids Vicki Victoria Whisper Zarvox
+      agnes albert alex bad bahh bells boing bruce bubbles cellos
+      deranged fred good hysterical junior kathy pipe princess ralph
+      trinoids vicki victoria whisper zarvox
     )
 
     PREFS = {
-      info: 'Bruce',
-      warn: 'Whisper',
-      success: 'Fred',
-      error: 'Trinoids'
+      info: 'vicki',
+      warn: 'whisper',
+      success: 'vicki',
+      error: 'bad'
     }
 
     def voice
@@ -22,10 +22,14 @@ module Talks
       @voice ||= voice
     end
 
+    def voices
+      VOICES
+    end
+
     def say(message, type = voice, options = {})
-      type = type.to_sym
+      type = type.to_sym if type
       say_voice = \
-        if options[:voice] and VOICES.include?(options[:voice].to_downcase)
+        if options[:voice] and VOICES.include?(options[:voice].to_s)
           options[:voice]
         elsif PREFS.keys.include? type
           PREFS[type]
