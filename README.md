@@ -6,6 +6,8 @@
 
 If you want to HEAR some response from your code, just use this gem.
 
+Sponsored by Evil Martians <http://evilmartians.com>
+
 ## Why?
 
 For example - some really long task and you just get some coffee, read book or surf internet
