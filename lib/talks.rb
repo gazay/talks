@@ -26,8 +26,8 @@ module Talks
       VOICES
     end
 
-    def say(message, type = voice, options = {})
-      type = type.to_sym if type
+    def say(message, options = {})
+      type = options[:type].to_sym if options[:type]
       say_voice = \
         if options[:voice] and VOICES.include?(options[:voice].to_s)
           options[:voice]
@@ -40,8 +40,8 @@ module Talks
     end
 
     PREFS.keys.each do |type|
-      define_method type do |message, options = {}|
-        say(message, type, options)
+      define_method type do |message, options = {type: type}|
+        say(message, options)
       end
     end
 
