@@ -1,5 +1,7 @@
 # What file is used for talks startup configuration.
-unless defined?(OPTS_INITFILE)
+initfile = if File.exists?('./.talksrc')
+  './.talksrc'
+elsif !defined?(OPTS_INITFILE)
   if RUBY_PLATFORM =~ /mswin/
     # Of course MS Windows has to be different
     OPTS_INITFILE = 'talks.ini'
@@ -9,9 +11,9 @@ unless defined?(OPTS_INITFILE)
     OPTS_INITFILE = '.talksrc'
     HOME_DIR = ENV['HOME'].to_s
   end
+  File.join(HOME_DIR, OPTS_INITFILE)
 end
 
-initfile = File.join(HOME_DIR, OPTS_INITFILE)
 
 if File.exist?(initfile)
   Talks.configure(YAML.load_file(initfile))

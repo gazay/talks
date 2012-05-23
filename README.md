@@ -21,7 +21,7 @@ This gem just using native MacOS X `say` command line tool.
 
 ### Configuration
 
-You can configure default voices and messages for `talks` with `~/.talksrc` file. It should be written in YAML format:
+You can configure default voices and messages for `talks` with `~/.talksrc` file or with `your_project/.talksrc` file. It should be written in YAML format:
 
 `~/.talksrc`
 ```yml
@@ -34,7 +34,7 @@ messages:
 ```
 
 The same you can do in your code dynamicly through Talks.config instance.
-Soon I'll add configuration with dotfile project-wide.
+You can configure now only default voice for `say` method and voices and messages for 4 types of talks: `info, warn, success, error`
 
 ### Using talks in your code
 
