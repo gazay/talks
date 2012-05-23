@@ -15,6 +15,8 @@ and you want to know when this task will ends, but don't want to check your mac 
 you can just add small hook in the end of your code and when it will ends - you will hear it with voice that you
 choose from MacOS X `say` function collection.
 
+You can find some examples of `talks` usage in organization [ruby-talks](https://github.com/ruby-talks).
+
 ## How?
 
 This gem just using native MacOS X `say` command line tool.
