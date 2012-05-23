@@ -1,3 +1,5 @@
+require File.expand_path('../talks/configuration.rb', __FILE__)
+
 module Talks
   class << self
 
@@ -7,19 +9,12 @@ module Talks
       trinoids vicki victoria whisper zarvox
     )
 
-    PREFS = {
-      info: 'vicki',
-      warn: 'whisper',
-      success: 'vicki',
-      error: 'bad'
-    }
+    TYPES = [:info, :warn, :success, :error]
 
-    def voice
-      @voice ||= :info
-    end
+    attr :config
 
-    def voice=(voice = :info)
-      @voice ||= voice
+    def configure(options)
+      @config = Talks::Configuration.new(options)
     end
 
     def voices
@@ -27,23 +22,30 @@ module Talks
     end
 
     def say(message, options = {})
-      type = options[:type].to_sym if options[:type]
-      say_voice = \
-        if options[:voice] and VOICES.include?(options[:voice].to_s)
-          options[:voice]
-        elsif PREFS.keys.include? type
-          PREFS[type]
-        else
-          PREFS[voice]
-        end
-      `say -v #{say_voice} #{message}`
+      type = options[:type] || :default
+      `say -v #{say_voice(type, options)} #{message}`
     end
 
-    PREFS.keys.each do |type|
-      define_method type do |message, options = {type: type}|
+    TYPES.each do |type|
+      define_method type do |message = nil, options = {type: type}|
+        message ||= config.message(type)
         say(message, options)
+      end
+    end
+
+    private
+
+    def say_voice(type, options)
+      if options[:voice] and VOICES.include?(options[:voice].to_s)
+        options[:voice]
+      elsif TYPES.include? type
+        config.voice type
+      else
+        config.default_voice
       end
     end
 
   end
 end
+
+require File.expand_path('../talks/runner.rb', __FILE__)
