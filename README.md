@@ -17,6 +17,14 @@ choose from MacOS X `say` function collection.
 
 You can find some examples of `talks` usage in organization [ruby-talks](https://github.com/ruby-talks).
 
+### Plugins available:
+
+  * [rails-talks](https://github.com/ruby-talks/rails-talks)
+  * [bundler-talks](https://github.com/ruby-talks/bundler-talks)
+  * [spec-talks](https://github.com/ruby-talks/spec-talks)
+
+I will add more later.
+
 ## How?
 
 This gem just using native MacOS X `say` command line tool.
