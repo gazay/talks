@@ -24,7 +24,7 @@ module Talks
       @default_voice = options[:default_voice] || 'vicki'
       @voices = options[:voices] && DEFAULT_VOICES.merge(options[:voices]) ||
         DEFAULT_VOICES
-      @messages = options[:messages] && DEFAULT_VOICES.merge(options[:messages]) ||
+      @messages = options[:messages] && DEFAULT_MESSAGES.merge(options[:messages]) ||
         DEFAULT_MESSAGES
     end
 

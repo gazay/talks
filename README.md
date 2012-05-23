@@ -1,8 +1,8 @@
-# Talks gem — now your ruby on your mac can talk with you
+# Talks gem — now your ruby can talk with you
+
+### Now it works only on MacOS X, soon we'll add support for linux and maybe windows through eSpeak or festival
 
 ### This is beta now
-
-## It was checked only on MacOS X. I don't know what present on linux or windows
 
 If you want to HEAR some response from your code, just use this gem.
 
@@ -18,6 +18,23 @@ choose from MacOS X `say` function collection.
 ## How?
 
 This gem just using native MacOS X `say` command line tool.
+
+### Configuration
+
+You can configure default voices and messages for `talks` with `~/.talksrc` file. It should be written in YAML format:
+
+`~/.talksrc`
+```yml
+default_voice: 'whisper'
+voices:
+  info: 'pipe'
+messages:
+  info: 'hello'
+  warn: 'WE GONNA DIE!!!'
+```
+
+The same you can do in your code dynamicly through Talks.config instance.
+Soon I'll add configuration with dotfile project-wide.
 
 ### Using talks in your code
 
