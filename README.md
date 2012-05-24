@@ -2,7 +2,7 @@
 
 ### Now it works only on MacOS X, soon we'll add support for linux and maybe windows through eSpeak or festival
 
-### This is beta now. Specs are really needed.
+### This is beta now.
 
 If you want to HEAR some response from your code, just use this gem.
 
