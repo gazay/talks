@@ -4,17 +4,17 @@ module Talks
   class Configuration
 
     DEFAULT_VOICES = {
-      info: 'vicki',
-      warn: 'whisper',
-      success: 'vicki',
-      error: 'bad'
+      :info    => 'vicki',
+      :warn    => 'whisper',
+      :success => 'vicki',
+      :error   => 'bad'
     }
 
     DEFAULT_MESSAGES = {
-      info: 'Information note',
-      warn: 'Warning',
-      success: 'Success',
-      error: 'Error'
+      :info    => 'Information note',
+      :warn    => 'Warning',
+      :success => 'Success',
+      :error   => 'Error'
     }
 
     attr_accessor :voices, :messages, :default_voice, :options
