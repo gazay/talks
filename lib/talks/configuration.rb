@@ -40,6 +40,22 @@ module Talks
       [message(type), voice(type)]
     end
 
+    def default_message_for(command_name, position = :after)
+      "#{command_name} task #{position == :before ? 'started' : 'ended'}"
+    end
+
+    def message_for(command_name, position = :after)
+      command = command_name.to_sym
+      options[command] &&
+        options[command][(position == :before ? :before_message : :after_message)]
+    end
+
+    def voice_for(command_name)
+      command = command_name.to_sym
+      options[command] &&
+        options[command][:voice]
+    end
+
     private
 
     def symbolize_hash_keys(opts)

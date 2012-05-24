@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+
+exec "talking #{ARGV.join(' ')}"

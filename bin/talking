@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+talks_dir = File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
+$LOAD_PATH.unshift(talks_dir) unless $LOAD_PATH.include?(talks_dir)
+require 'talks'
+
+command = (ARGV.first == 'talks' ? ARGV[1..-1] : ARGV)
+command_with_hooks = Talks.add_hooks command
+
+exec command_with_hooks

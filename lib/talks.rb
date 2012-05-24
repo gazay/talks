@@ -1,4 +1,5 @@
 require File.expand_path('../talks/configuration.rb', __FILE__)
+require File.expand_path('../talks/hooks.rb', __FILE__)
 
 module Talks
   class << self
@@ -24,6 +25,10 @@ module Talks
     def say(message, options = {})
       type = options[:type] || :default
       `say -v #{say_voice(type, options)} #{message}`
+    end
+
+    def add_hooks(command)
+      Talks::Hooks.create command
     end
 
     TYPES.each do |type|
