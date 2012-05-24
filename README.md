@@ -2,7 +2,7 @@
 
 ### Now it works only on MacOS X, soon we'll add support for linux and maybe windows through eSpeak or festival
 
-### This is beta now
+### This is beta now. Specs are really needed.
 
 If you want to HEAR some response from your code, just use this gem.
 
@@ -15,15 +15,11 @@ and you want to know when this task will ends, but don't want to check your mac 
 you can just add small hook in the end of your code and when it will ends - you will hear it with voice that you
 choose from MacOS X `say` function collection.
 
-You can find some examples of `talks` usage in organization [ruby-talks](https://github.com/ruby-talks).
-
-### Plugins available:
+You can find some examples of `talks` usage in organization [ruby-talks](https://github.com/ruby-talks):
 
   * [rails-talks](https://github.com/ruby-talks/rails-talks)
   * [bundler-talks](https://github.com/ruby-talks/bundler-talks)
   * [spec-talks](https://github.com/ruby-talks/spec-talks)
-
-I will add more later.
 
 ## How?
 
@@ -45,6 +41,50 @@ messages:
 
 The same you can do in your code dynamicly through Talks.config instance.
 You can configure now only default voice for `say` method and voices and messages for 4 types of talks: `info, warn, success, error`
+
+For command-line commands you can configure default voices and hook messages:
+
+`~/.talksrc`
+```yml
+bundle:
+  voice: 'vicki'
+  before_message: 'Bundler again will do all right'
+  after_message: "Bundler's job is done here"
+```
+
+You can create your own default preferences for each command-line tool which you want to run with `talks` or `talking` command in front:
+
+`~/.talksrc`
+```yml
+ls:
+  voice: 'bad'
+  before_message: 'Now we will see what in the directory'
+  after_message: ''
+cap:
+  ...
+vim:
+  ...
+scp:
+  ...
+... and etc
+```
+
+### Using talks/talking command-line tool
+
+`talks` or `talking` command-line tool wrap your command-line commands with talks hooks:
+
+```bash
+$ talking bundle install
+```
+
+After that `talks` will wrap execution of this command with voice messages. By default messages will be like 'command_name task started/ended'.
+You can preconfigure messages in your `~/.talksrc` file or you can send options right in talking command:
+
+```bash
+$ talking -v agnes -bm 'We gonna die!' -am 'Not sure if we can hear that' rm -rf ./
+# the same
+$ talking --voice agnes --before-message 'We...' --after-message 'Not...' rm -rf ./
+```
 
 ### Using talks in your code
 
@@ -84,13 +124,17 @@ VOICES = %w(
 
 ## Who?
 
-I did it myself
+I did it by myself
 
 ### Contributors
 
-* @gazay
+  * @gazay
 
 ### A lot of thanks
+
+  * @aderyabin - idea of extended customization of talks is his.
+
+  * @brainopia - bro helps me with any my idea. He adviced me to do command line tool talks.
 
 You can help me with this fun gem and I'll gladly add you here, or above
 

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.1.0
+
+  * Added bin command for wrap your commandline commands with talks hooks (@brainopia)
+
 ## 0.0.5
 
   * Added customization through your_project_folder/.talksrc file
