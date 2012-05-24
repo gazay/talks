@@ -1,7 +1,9 @@
 # What file is used for talks startup configuration.
 initfile = if File.exists?('./.talksrc')
   './.talksrc'
-elsif !defined?(OPTS_INITFILE)
+elsif defined?(OPTS_INITFILE)
+  OPTS_INITFILE
+else
   if RUBY_PLATFORM =~ /mswin/
     # Of course MS Windows has to be different
     OPTS_INITFILE = 'talks.ini'

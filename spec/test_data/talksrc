@@ -1,0 +1,5 @@
+default_voice: 'agnes'
+bundle:
+  voice: 'bad'
+  before_message: 'Bundle before message'
+  after_message: 'Bundle after message'
