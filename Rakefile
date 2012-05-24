@@ -14,7 +14,7 @@ task :all do
 
   Talks.voices.each do |v|
     p v
-    Talks.say 'Tests start', voice: v
+    Talks.say 'Tests start', :voice => v
   end
 
   p 'say `say`'

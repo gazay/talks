@@ -4,6 +4,8 @@
 
 ### This is beta now.
 
+### Build Status ![http://travis-ci.org/ruby-talks/talks](https://secure.travis-ci.org/ruby-talks/talks.png)
+
 If you want to HEAR some response from your code, just use this gem.
 
 Sponsored by Evil Martians <http://evilmartians.com>
