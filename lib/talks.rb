@@ -2,7 +2,7 @@ require File.expand_path('../talks/configuration.rb', __FILE__)
 require File.expand_path('../talks/hooks.rb', __FILE__)
 
 module Talks
-  class << self
+  extend self
 
     VOICES = {
       :say => %w(
@@ -35,7 +35,7 @@ module Talks
       when 'espeak'
         `espeak -v #{say_voice(type, options)} '#{message}'`
       else
-        abort "Don't know that engine now: #{config.engine}"
+        abort "Undefined engine: #{config.engine}"
       end
     end
 
@@ -62,7 +62,6 @@ module Talks
       end
     end
 
-  end
 end
 
 require File.expand_path('../talks/runner.rb', __FILE__)
