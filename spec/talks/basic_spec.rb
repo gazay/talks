@@ -1,6 +1,10 @@
 OPTS_INITFILE = 'spec/test_data/talksrc'
 require 'talks'
 
+def talk_command
+  Talks.config.engine
+end
+
 describe Talks do
 
   it 'should have default methods' do
@@ -25,7 +29,8 @@ describe Talks do
     end
 
     it 'should return voice for type' do
-      Talks.config.voice(:info).should == 'vicki'
+      Talks.config.voice(:info).should == 'vicki' if talk_command == 'say'
+      Talks.config.voice(:info).should == 'en+f3' if talk_command == 'espeak'
     end
 
     it 'should return message for type' do
@@ -51,24 +56,24 @@ describe Talks do
   context 'hooks' do
 
     it 'should create hooks for any command by default' do
-      Talks.add_hooks(['ls']).should == "say -v agnes 'ls task started'; ls; say -v agnes 'ls task ended'"
+      Talks.add_hooks(['ls']).should == "#{talk_command} -v agnes 'ls task started'; ls; #{talk_command} -v agnes 'ls task ended'"
     end
 
     it 'should create preconfigured hooks for command from .talksrc' do
-      Talks.add_hooks(['bundle']).should == "say -v bad 'Bundle before message'; bundle; say -v bad 'Bundle after message'"
+      Talks.add_hooks(['bundle']).should == "#{talk_command} -v bad 'Bundle before message'; bundle; #{talk_command} -v bad 'Bundle after message'"
     end
 
     it 'should change voice if option sended' do
-      Talks.add_hooks(['-v', 'vicki', 'ls']).should == "say -v vicki 'ls task started'; ls; say -v vicki 'ls task ended'"
+      Talks.add_hooks(['-v', 'vicki', 'ls']).should == "#{talk_command} -v vicki 'ls task started'; ls; #{talk_command} -v vicki 'ls task ended'"
     end
 
     it 'should change messages if option sended' do
-      Talks.add_hooks(['-bm', 'test', 'ls']).should == "say -v agnes 'test'; ls; say -v agnes 'ls task ended'"
-      Talks.add_hooks(['-am', 'test', 'ls']).should == "say -v agnes 'ls task started'; ls; say -v agnes 'test'"
+      Talks.add_hooks(['-bm', 'test', 'ls']).should == "#{talk_command} -v agnes 'test'; ls; #{talk_command} -v agnes 'ls task ended'"
+      Talks.add_hooks(['-am', 'test', 'ls']).should == "#{talk_command} -v agnes 'ls task started'; ls; #{talk_command} -v agnes 'test'"
     end
 
     it 'should create hooks for command inside `bundle exec` by default' do
-      Talks.add_hooks(['bundle', 'exec', 'ls']).should == "say -v agnes 'ls task started'; bundle exec ls; say -v agnes 'ls task ended'"
+      Talks.add_hooks(['bundle', 'exec', 'ls']).should == "#{talk_command} -v agnes 'ls task started'; bundle exec ls; #{talk_command} -v agnes 'ls task ended'"
     end
 
   end
