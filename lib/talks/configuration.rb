@@ -84,7 +84,7 @@ module Talks
       elsif !(`which espeak`.empty?)
         'espeak'
       else
-        abort 'Now talks can work only on MacOS X, you can help with support other OS'
+        abort 'Talks is supported on Mac OS X and linux only, but you can help with support for other OSes'
       end
     end
 
