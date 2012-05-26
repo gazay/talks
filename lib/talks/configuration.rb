@@ -11,10 +11,10 @@ module Talks
         :error   => 'bad'
       },
       :espeak => {
-        :info    => 'english',
-        :warn    => 'english',
-        :success => 'english',
-        :error   => 'english'
+        :info    => 'en+f3',
+        :warn    => 'en+m1',
+        :success => 'en+f3',
+        :error   => 'en+m3'
       }
     }
 
