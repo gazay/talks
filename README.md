@@ -1,21 +1,23 @@
 # Talks gem — now your ruby and command-line tools can talk with you
 
-### This is beta now.
+### This is in beta now.
 
 ### Build Status ![http://travis-ci.org/ruby-talks/talks](https://secure.travis-ci.org/ruby-talks/talks.png)
 
 If you want to HEAR some response from your code or command-line tools, just use this gem.
 
-You can use this gem on MacOS X and on other linux/unix systems with installed [espeak](http://espeak.sourceforge.net).
+You can use this gem on MacOS X and on other linux/unix systems with [espeak](http://espeak.sourceforge.net) installed.
 
 Sponsored by Evil Martians <http://evilmartians.com>
 
 ## Why?
 
-For example - some really long task and you just get some coffee, read book or surf internet
-and you want to know when this task will ends, but don't want to check your mac or terminal each minute -
-you can just add small hook in the end of your code and when it will ends - you will hear it with voice that you
-choose from MacOS X `say` function collection or from `espeak` collection.
+### Example
+
+You're running some really long task and you leave the desk and drink some coffee, read a book or surf the internet
+and you want to know when will this task end, but you don't want to check your machine each minute -
+you can just add a little hook at the end of your code and when the execution ends - you will hear it in voice
+that you have chosen from MacOS X `say` function collection or from `espeak` collection.
 
 You can find some examples of `talks` usage in organization [ruby-talks](https://github.com/ruby-talks):
 
@@ -25,10 +27,10 @@ You can find some examples of `talks` usage in organization [ruby-talks](https:/
 
 ## How?
 
-On MacOS X this gem just using native MacOS X `say` command line tool.
-On linix/unix this gem using espeak speech synthesis.
+On MacOS X this gem is just using the native MacOS X `say` command line tool.
+On linix/unix this gem is using espeak speech synthesis.
 
-### In all examples below I used MacOS X voice types. For espeak you can read section [Using talks with espeak](https://github.com/ruby-talks/talks#using-talks-with-espeak)
+### In all examples below I've used MacOS X voice types. For espeak you can read section [Using talks with espeak](https://github.com/ruby-talks/talks#using-talks-with-espeak)
 
 ### Configuration
 
@@ -45,8 +47,9 @@ messages:
   warn: 'WE GONNA DIE!!!'
 ```
 
-The same you can do in your code dynamicly through Talks.config instance.
-You can configure now only default voice for `say` method and voices and messages for 4 types of talks: `info, warn, success, error`
+You can also do it in your code dynamically through Talks.config instance.
+
+You can configure only the default voice for `say` method and voices and messages for 4 types of talks: `info, warn, success, error`
 
 For command-line commands you can configure default voices and hook messages:
 
@@ -84,7 +87,7 @@ $ talking bundle install
 ```
 
 After that `talks` will wrap execution of this command with voice messages. By default messages will be like 'command_name task started/ended'.
-You can preconfigure messages in your `~/.talksrc` file or you can send options right in talking command:
+You can preconfigure messages in your `~/.talksrc` file or you can send options right in the talking command:
 
 ```bash
 $ talking -v agnes -bm 'We gonna die!' -am 'Not sure if we can hear that' rm -rf ./
@@ -112,14 +115,14 @@ Talks.info 'This is info'
 # Talks.error 'Some text'
 ```
 
-`Talks.say` can be customized with type of message and voice by adding options to executing this method:
+`Talks.say` can be customized with type of message and voice by adding options to this method parameters:
 
 ```ruby
 Talks.say 'Hello like pipe', voice: 'pipe'
 Talks.say 'Hello like error', type: :error # the same as using Talks.error
 ```
 
-All voices which I found in manual for `say`:
+All voices which I've found in `say` manual:
 ```ruby
 VOICES = %w(
   agnes albert alex bad bahh bells boing bruce bubbles cellos
@@ -130,16 +133,16 @@ VOICES = %w(
 
 ### Using talks with espeak
 
-You can configure your `talks` usage even on MacOS X for using [espeak](http://espeak.sourceforge.net):
+You can configure your `talks` engine even to tell MacOS X to use [espeak](http://espeak.sourceforge.net):
 
 `~/.talksrc`
 ```yml
 engine: 'espeak'
 ```
 
-Otherwise `talks` will set engine by default to `say` on MacOS X and to `espeak` on all other OS if command `which espeak` returns something than empty string.
+Otherwise `talks` will set engine by default. It will be set to `say` on MacOS X and to `espeak` on all other OS-es if command `which espeak` returns non-empty string.
 
-For espeak you have different set of voices and many languages (which this gem not support yet). Voices for espeak:
+You can even configure your language in espeak (this gem still doesn't support different languages). Voices for espeak:
 
 ```ruby
 Talks.voices[:espeak]
@@ -152,7 +155,7 @@ Talks.voices[:espeak]
 
 ## Who?
 
-I did it by myself
+I did it myself.
 
 ### Contributors
 
@@ -160,11 +163,11 @@ I did it by myself
 
 ### A lot of thanks
 
-  * @aderyabin - idea of extended customization of talks is his.
+  * @aderyabin - extended customization of talks is his idea.
 
-  * @brainopia - bro helps me with any my idea. He adviced me to do command line tool talks.
+  * @brainopia - bro helps me with any idea of mine. He advised me to do command line tool talks.
 
-You can help me with this fun gem and I'll gladly add you here, or above
+You can help me with this fun gem and I'll gladly add you here, or above.
 
 ## License
 
