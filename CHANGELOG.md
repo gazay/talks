@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.0
+
+  * Added espeak support
+
 ## 0.1.0
 
   * Added bin command for wrap your commandline commands with talks hooks (@brainopia)

@@ -4,11 +4,16 @@ require File.expand_path('../talks/hooks.rb', __FILE__)
 module Talks
   class << self
 
-    VOICES = %w(
-      agnes albert alex bad bahh bells boing bruce bubbles cellos
-      deranged fred good hysterical junior kathy pipe princess ralph
-      trinoids vicki victoria whisper zarvox
-    )
+    VOICES = {
+      :say => %w(
+        agnes albert alex bad bahh bells boing bruce bubbles cellos
+        deranged fred good hysterical junior kathy pipe princess ralph
+        trinoids vicki victoria whisper zarvox
+      ),
+      :espeak => %w(en+m1 en+m2 en+m3 en+m4 en+m5 en+m6 en+m7
+        en+f1 en+f2 en+f3 en+f4 en+f5 en+f6 en+f7
+      )
+    }
 
     TYPES = [:info, :warn, :success, :error]
 
@@ -24,7 +29,14 @@ module Talks
 
     def say(message, options = {})
       type = options[:type] || :default
-      `say -v #{say_voice(type, options)} #{message}`
+      case config.engine
+      when 'say'
+        `say -v #{say_voice(type, options)} '#{message}'`
+      when 'espeak'
+        `espeak -v #{say_voice(type, options)} '#{message}'`
+      else
+        abort "Don't know that engine now: #{config.engine}"
+      end
     end
 
     def add_hooks(command)
@@ -41,7 +53,7 @@ module Talks
     private
 
     def say_voice(type, options)
-      if options[:voice] and VOICES.include?(options[:voice].to_s)
+      if options[:voice] and VOICES[config.engine.to_sym].include?(options[:voice].to_s)
         options[:voice]
       elsif TYPES.include? type
         config.voice type

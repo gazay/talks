@@ -51,24 +51,24 @@ describe Talks do
   context 'hooks' do
 
     it 'should create hooks for any command by default' do
-      Talks.add_hooks(['ls']).should == "say ls task started -v agnes; ls; say ls task ended -v agnes"
+      Talks.add_hooks(['ls']).should == "say -v agnes 'ls task started'; ls; say -v agnes 'ls task ended'"
     end
 
     it 'should create preconfigured hooks for command from .talksrc' do
-      Talks.add_hooks(['bundle']).should == "say Bundle before message -v bad; bundle; say Bundle after message -v bad"
+      Talks.add_hooks(['bundle']).should == "say -v bad 'Bundle before message'; bundle; say -v bad 'Bundle after message'"
     end
 
     it 'should change voice if option sended' do
-      Talks.add_hooks(['-v', 'vicki', 'ls']).should == "say ls task started -v vicki; ls; say ls task ended -v vicki"
+      Talks.add_hooks(['-v', 'vicki', 'ls']).should == "say -v vicki 'ls task started'; ls; say -v vicki 'ls task ended'"
     end
 
     it 'should change messages if option sended' do
-      Talks.add_hooks(['-bm', 'test', 'ls']).should == "say test -v agnes; ls; say ls task ended -v agnes"
-      Talks.add_hooks(['-am', 'test', 'ls']).should == "say ls task started -v agnes; ls; say test -v agnes"
+      Talks.add_hooks(['-bm', 'test', 'ls']).should == "say -v agnes 'test'; ls; say -v agnes 'ls task ended'"
+      Talks.add_hooks(['-am', 'test', 'ls']).should == "say -v agnes 'ls task started'; ls; say -v agnes 'test'"
     end
 
     it 'should create hooks for command inside `bundle exec` by default' do
-      Talks.add_hooks(['bundle', 'exec', 'ls']).should == "say ls task started -v agnes; bundle exec ls; say ls task ended -v agnes"
+      Talks.add_hooks(['bundle', 'exec', 'ls']).should == "say -v agnes 'ls task started'; bundle exec ls; say -v agnes 'ls task ended'"
     end
 
   end

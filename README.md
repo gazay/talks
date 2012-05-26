@@ -1,12 +1,12 @@
-# Talks gem — now your ruby can talk with you
-
-### Now it works only on MacOS X, soon we'll add support for linux and maybe windows through eSpeak or festival
+# Talks gem — now your ruby and command-line tools can talk with you
 
 ### This is beta now.
 
 ### Build Status ![http://travis-ci.org/ruby-talks/talks](https://secure.travis-ci.org/ruby-talks/talks.png)
 
-If you want to HEAR some response from your code, just use this gem.
+If you want to HEAR some response from your code or command-line tools, just use this gem.
+
+You can use this gem on MacOS X and on other linux/unix systems with installed [espeak](http://espeak.sourceforge.net).
 
 Sponsored by Evil Martians <http://evilmartians.com>
 
@@ -15,7 +15,7 @@ Sponsored by Evil Martians <http://evilmartians.com>
 For example - some really long task and you just get some coffee, read book or surf internet
 and you want to know when this task will ends, but don't want to check your mac or terminal each minute -
 you can just add small hook in the end of your code and when it will ends - you will hear it with voice that you
-choose from MacOS X `say` function collection.
+choose from MacOS X `say` function collection or from `espeak` collection.
 
 You can find some examples of `talks` usage in organization [ruby-talks](https://github.com/ruby-talks):
 
@@ -25,7 +25,10 @@ You can find some examples of `talks` usage in organization [ruby-talks](https:/
 
 ## How?
 
-This gem just using native MacOS X `say` command line tool.
+On MacOS X this gem just using native MacOS X `say` command line tool.
+On linix/unix this gem using espeak speech synthesis.
+
+### In all examples below I used MacOS X voice types. For espeak you can read section [Using talks with espeak](#)
 
 ### Configuration
 
@@ -34,6 +37,7 @@ You can configure default voices and messages for `talks` with `~/.talksrc` file
 `~/.talksrc`
 ```yml
 default_voice: 'whisper'
+engine: 'say'
 voices:
   info: 'pipe'
 messages:
@@ -122,6 +126,28 @@ VOICES = %w(
   deranged fred good hysterical junior kathy pipe princess ralph
   trinoids vicki victoria whisper zarvox
 )
+```
+
+### Using talks with espeak
+
+You can configure your `talks` usage even on MacOS X for using [espeak](http://espeak.sourceforge.net):
+
+`~/.talksrc`
+```yml
+engine: 'espeak'
+```
+
+Otherwise `talks` will set engine by default to `say` on MacOS X and to `espeak` on all other OS if command `which espeak` returns something than empty string.
+
+For espeak you have different set of voices and many languages (which this gem not support yet). Voices for espeak:
+
+```ruby
+Talks.voices[:espeak]
+# =>
+  [
+    'en+m1', 'en+m2', 'en+m3', 'en+m4', 'en+m5', 'en+m6', 'en+m7',
+    'en+f1', 'en+f2', 'en+f3', 'en+f4', 'en+f5', 'en+f6', 'en+f7'
+  ]
 ```
 
 ## Who?

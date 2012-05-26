@@ -3,7 +3,7 @@ module Talks
     class << self
 
       def create(args)
-        engine = check_engine
+        engine = Talks.config.engine
         options, args = shift_options(args.dup)
         command_name = command args
         voice, before_message, after_message = parse options, command_name
@@ -37,14 +37,6 @@ module Talks
         end
       end
 
-      def check_engine
-        if RUBY_PLATFORM =~ /darwin/i
-          'say'
-        else
-          abort 'Now talks can work only on MacOS X, you can help with support other OS'
-        end
-      end
-
       def parse(options, command_name)
         voice = options['-v'] || options['--voice'] ||
           Talks.config.voice_for(command_name.to_sym) ||
@@ -62,11 +54,7 @@ module Talks
       end
 
       def hook(engine, voice, message)
-        if engine == 'say'
-          "say #{message} -v #{voice}"
-        else
-          abort 'Now you can use talks gem only on mac with say'
-        end
+        "#{engine} -v #{voice} '#{message}'"
       end
 
     end
