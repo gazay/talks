@@ -163,6 +163,8 @@ I did it myself.
 
 ### A lot of thanks
 
+  * @shime - for grammar fixes in readme and better explanation of my idea.
+
   * @aderyabin - extended customization of talks is his idea.
 
   * @brainopia - bro helps me with any idea of mine. He advised me to do command line tool talks.
