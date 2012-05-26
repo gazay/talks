@@ -28,7 +28,7 @@ You can find some examples of `talks` usage in organization [ruby-talks](https:/
 On MacOS X this gem just using native MacOS X `say` command line tool.
 On linix/unix this gem using espeak speech synthesis.
 
-### In all examples below I used MacOS X voice types. For espeak you can read section [Using talks with espeak](#)
+### In all examples below I used MacOS X voice types. For espeak you can read section [Using talks with espeak](https://github.com/ruby-talks/talks#using-talks-with-espeak)
 
 ### Configuration
 
