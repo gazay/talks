@@ -14,8 +14,8 @@ Sponsored by Evil Martians <http://evilmartians.com>
 
 ### Example
 
-You're running some really long task and you leave the desk and drink some coffee, read a book or surf the internet
-and you want to know when will this task end, but you don't want to check your machine each minute -
+You're running some really long task and you leave the desk to drink some coffee, read a book or surf the internet
+and you want to be notified that the task has finished its execution. You don't want to check your machine each minute. With this gem
 you can just add a little hook at the end of your code and when the execution ends - you will hear it in voice
 that you have chosen from MacOS X `say` function collection or from `espeak` collection.
 
