@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+
 OPTS_INITFILE = 'spec/test_data/talksrc'
 require 'talks'
 
