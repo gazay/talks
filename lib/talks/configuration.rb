@@ -62,8 +62,11 @@ module Talks
     def notifier_for(command_name)
       command = command_name.to_sym
       (options[:notifier] != 'off') &&
-        options[command] &&
-        (options[command][:notifier] != 'off')
+        (
+          !options[command] ||
+          (options[command] &&
+          (options[command][:notifier] != 'off'))
+        )
     end
 
     def notify_message_for(command_name, position = :after)
