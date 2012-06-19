@@ -7,4 +7,4 @@ require 'talks'
 command = (ARGV.first == 'talks' ? ARGV[1..-1] : ARGV)
 command_with_hooks = Talks.add_hooks command
 
-exec command_with_hooks
+Talks.execute command_with_hooks

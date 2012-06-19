@@ -14,6 +14,8 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "talks"
 
+  s.add_dependency("notifier")
+
   s.add_development_dependency("rspec")
   s.add_development_dependency("simplecov")
 

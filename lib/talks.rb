@@ -1,5 +1,6 @@
 require File.expand_path('../talks/configuration.rb', __FILE__)
 require File.expand_path('../talks/hooks.rb', __FILE__)
+require 'notifier'
 
 module Talks
   extend self
@@ -37,6 +38,17 @@ module Talks
       else
         abort "Undefined engine: #{config.engine}"
       end
+    end
+
+    def notify(message, options = {})
+      Notifier.notify message: message, title: 'Talks', image: ''
+    end
+
+    def execute(command)
+      before_notify, command, after_notify = command
+      Talks.notify before_notify if before_notify
+      system command
+      Talks.notify after_notify if after_notify
     end
 
     def add_hooks(command)

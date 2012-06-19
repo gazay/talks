@@ -25,7 +25,7 @@ module Talks
       :error   => 'Error'
     }
 
-    attr_accessor :voices, :messages, :default_voice, :options, :engine
+    attr_accessor :voices, :messages, :default_voice, :options, :engine, :notifier
 
     def initialize(opts)
       @options = symbolize_hash_keys(opts)
@@ -57,6 +57,19 @@ module Talks
       command = command_name.to_sym
       options[command] &&
         options[command][(position == :before ? :before_message : :after_message)]
+    end
+
+    def notifier_for(command_name)
+      command = command_name.to_sym
+      (options[:notifier] != 'off') &&
+        options[command] &&
+        (options[command][:notifier] != 'off')
+    end
+
+    def notify_message_for(command_name, position = :after)
+      command = command_name.to_sym
+      options[command] &&
+        options[command][(position == :before ? :before_notify : :after_notify)]
     end
 
     def voice_for(command_name)

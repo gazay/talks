@@ -6,13 +6,14 @@ module Talks
         engine = Talks.config.engine
         options, args = shift_options(args.dup)
         command_name = command args
-        voice, before_message, after_message = parse options, command_name
+        voice, before_message, after_message, before_notify, after_notify = \
+          parse options, command_name
 
         before_hook = hook(engine, voice, before_message)
         after_hook = hook(engine, voice, after_message)
         command = args.join(' ')
 
-        [before_hook, command, after_hook].join('; ')
+        [before_notify, [before_hook, command, after_hook].join('; '), after_notify]
       end
 
       private
@@ -50,7 +51,21 @@ module Talks
           Talks.config.message_for(command_name, :after) ||
           Talks.config.default_message_for(command_name, :after)
 
-        [voice, before_message, after_message]
+        before_notify = Talks.config.notifier_for(command_name) &&
+          (
+            options['-bn'] || options['--before-notify'] ||
+            Talks.config.notify_message_for(command_name, :before) ||
+            Talks.config.default_message_for(command_name, :before)
+          )
+
+        after_notify = Talks.config.notifier_for(command_name) &&
+          (
+            options['-an'] || options['--after-notify'] ||
+            Talks.config.notify_message_for(command_name, :after) ||
+            Talks.config.default_message_for(command_name, :after)
+          )
+
+        [voice, before_message, after_message, before_notify, after_notify]
       end
 
       def hook(engine, voice, message)
