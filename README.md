@@ -1,12 +1,18 @@
 # Talks gem — now your ruby and command-line tools can talk with you
 
-### This is in beta now.
-
 ### Build Status ![http://travis-ci.org/ruby-talks/talks](https://secure.travis-ci.org/ruby-talks/talks.png)
 
 If you want to HEAR some response from your code or command-line tools, just use this gem.
 
 You can use this gem on MacOS X and on other linux/unix systems with [espeak](http://espeak.sourceforge.net) installed.
+
+Now with support for notifiers through [notifier](https://github.com/fnando/notifier) gem!
+Check the notifier's
+[README](https://github.com/fnando/notifier/blob/master/README.rdoc) and
+find what notifier you want to use - there is support for every OS!
+
+I added in all sections of this readme notes about usage notifier
+functionality.
 
 Sponsored by Evil Martians <http://evilmartians.com>
 
@@ -19,6 +25,10 @@ and you want to be notified that the task has finished its execution. You don't 
 you can just add a little hook at the end of your code and when the execution ends - you will hear it in voice
 that you have chosen from MacOS X `say` function collection or from `espeak` collection.
 
+Now if you forgot power on you sound on machine you can always see
+notifications by notifiers like Growl, Kdialog, Knotify, etc. Full list of notifiers is
+[here](https://github.com/fnando/notifier/blob/master/README.rdoc).
+
 You can find some examples of `talks` usage in organization [ruby-talks](https://github.com/ruby-talks):
 
   * [rails-talks](https://github.com/ruby-talks/rails-talks)
@@ -30,6 +40,8 @@ You can find some examples of `talks` usage in organization [ruby-talks](https:/
 On MacOS X this gem is just using the native MacOS X `say` command line tool.
 On linix/unix this gem is using espeak speech synthesis.
 
+For notifications this gem uses [notifier](https://github.com/fnando/notifier/blob/master/README.rdoc) gem.
+
 ### In all examples below I've used MacOS X voice types. For espeak you can read section [Using talks with espeak](https://github.com/ruby-talks/talks#using-talks-with-espeak)
 
 ### Configuration
@@ -40,6 +52,7 @@ You can configure default voices and messages for `talks` with `~/.talksrc` file
 ```yml
 default_voice: 'whisper'
 engine: 'say'
+notifier: 'off' # if this option passed - you will not receive notifications at all
 voices:
   info: 'pipe'
 messages:
@@ -59,6 +72,9 @@ bundle:
   voice: 'vicki'
   before_message: 'Bundler again will do all right'
   after_message: "Bundler's job is done here"
+  before_notify: 'This will go to notification before `before_message`'
+  after_notify: 'This will go to notification after `after_message`'
+# notifier: 'off' # this option will turn off notifications for this command
 ```
 
 You can create your own default preferences for each command-line tool which you want to run with `talks` or `talking` command in front:
@@ -68,7 +84,10 @@ You can create your own default preferences for each command-line tool which you
 ls:
   voice: 'bad'
   before_message: 'Now we will see what in the directory'
-  after_message: ''
+  after_message: '.'
+  before_notify: 'This will go to notification before `before_message`'
+  after_notify: 'This will go to notification after `after_message`'
+# notifier: 'off' # this option will turn off notifications for this command
 cap:
   ...
 vim:
@@ -94,6 +113,13 @@ $ talking -v agnes -bm 'We gonna die!' -am 'Not sure if we can hear that' rm -rf
 # the same
 $ talking --voice agnes --before-message 'We...' --after-message 'Not...' rm -rf ./
 ```
+The same with notifications:
+
+```bash
+$ talking -v agnes -bn 'We gonna die!' -an 'Not sure if we can hear that' rm -rf ./
+# the same
+$ talking --voice agnes --before-notify 'We...' --after-notify 'Not...' rm -rf ./
+```
 
 ### Using talks in your code
 
@@ -113,6 +139,7 @@ Talks.info 'This is info'
 # Talks.warn 'Some text'
 # Talks.success 'Some text'
 # Talks.error 'Some text'
+Talks.notify 'This will be shown to you by your notifier'
 ```
 
 `Talks.say` can be customized with type of message and voice by adding options to this method parameters:
@@ -162,6 +189,8 @@ I did it myself.
   * @gazay
 
 ### A lot of thanks
+
+  * @kossnocorp - for idea with notifiers.
 
   * @shime - for grammar fixes in readme and better explanation of my idea.
 
