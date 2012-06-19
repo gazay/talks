@@ -12,7 +12,8 @@ Check the notifier's
 find what notifier you want to use - there is support for every OS!
 
 I added in all sections of this readme notes about usage notifier
-functionality.
+functionality. And small
+[readme](https://github.com/ruby-talks/talks#using-talks-with-growl) about usage with Growl notifier.
 
 Sponsored by Evil Martians <http://evilmartians.com>
 
@@ -178,6 +179,27 @@ Talks.voices[:espeak]
     'en+m1', 'en+m2', 'en+m3', 'en+m4', 'en+m5', 'en+m6', 'en+m7',
     'en+f1', 'en+f2', 'en+f3', 'en+f4', 'en+f5', 'en+f6', 'en+f7'
   ]
+```
+
+### Using talks with Growl
+
+For [Growl](http://growl.info) you should be a Mac user. And you should have Growl version >= 1.3.
+
+If it's or for you - you need to do several steps for using talks with Growl:
+
+  * Install the [growlnotify](http://growl.cachefly.net/GrowlNotify-1.3.zip) script
+
+  * Open the Growl Preference Panel (System > Growl) and activate “Listen
+    for incoming notifications” and “Allow remote application registration” (in Growl v1.4 present only first option - activate only her)
+    options on the Network tab
+
+  * I don't really remember - but maybe you should restart your machine
+    after that :)
+
+Now you can use talks with Growl support:
+
+```bash
+$: talking -bn 'This is before notification wich will shown with growl'
 ```
 
 ## Who?
