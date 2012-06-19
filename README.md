@@ -185,7 +185,7 @@ Talks.voices[:espeak]
 
 For [Growl](http://growl.info) you should be a Mac user. And you should have Growl version >= 1.3.
 
-If it's or for you - you need to do several steps for using talks with Growl:
+If it's ok for you - you need to do several steps for using talks with Growl:
 
   * Install the [growlnotify](http://growl.cachefly.net/GrowlNotify-1.3.zip) script
 
