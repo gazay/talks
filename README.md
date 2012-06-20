@@ -15,6 +15,8 @@ I added in all sections of this readme notes about usage notifier
 functionality. And small
 [readme](https://github.com/ruby-talks/talks#using-talks-with-growl) about usage with Growl notifier.
 
+### Here is a small [screencast](http://www.youtube.com/watch?v=PaUpwQMBvOY) about talks
+
 Sponsored by Evil Martians <http://evilmartians.com>
 
 ## Why?
