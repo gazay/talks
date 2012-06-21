@@ -17,6 +17,8 @@ functionality. And small
 
 ### Here is a small [screencast](http://www.youtube.com/watch?v=PaUpwQMBvOY) about talks
 
+Soon we will finish the [wiki](https://github.com/ruby-talks/talks/wiki) and it will be (I hope) delimited and clear for understand.
+
 Sponsored by Evil Martians <http://evilmartians.com>
 
 ## Why?
