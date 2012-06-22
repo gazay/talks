@@ -2,15 +2,18 @@ module Talks
   module Hooks
     class << self
 
+      def engine
+        Tals.config.engine
+      end
+
       def create(args)
-        engine = Talks.config.engine
         options, args = shift_options(args.dup)
         command_name = command args
         voice, before_message, after_message, before_notify, after_notify = \
           parse options, command_name
 
-        before_hook = hook(engine, voice, before_message)
-        after_hook = hook(engine, voice, after_message)
+        before_hook = hook(voice, before_message)
+        after_hook = hook(voice, after_message)
         command = args.join(' ')
 
         [before_notify, [before_hook, command, after_hook].join('; '), after_notify]
@@ -68,7 +71,7 @@ module Talks
         [voice, before_message, after_message, before_notify, after_notify]
       end
 
-      def hook(engine, voice, message)
+      def hook(voice, message)
         "#{engine} -v #{voice} '#{message}'"
       end
 
