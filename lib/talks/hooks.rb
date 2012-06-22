@@ -2,9 +2,6 @@ module Talks
   module Hooks
     class << self
 
-      def engine
-        Tals.config.engine
-      end
 
       def create(args)
         options, args = shift_options(args.dup)
@@ -20,6 +17,10 @@ module Talks
       end
 
       private
+
+      def engine
+        Talks.config.engine
+      end
 
       def shift_options(args, options={})
         # Check arguments for talks
