@@ -59,26 +59,34 @@ describe Talks do
   context 'hooks' do
 
     it 'should create hooks for any command by default' do
-      Talks.add_hooks(['ls']).should == "#{talk_command} -v agnes 'ls task started'; ls; #{talk_command} -v agnes 'ls task ended'"
+      Talks.add_hooks(['ls']).should == ["ls task started","#{talk_command} -v agnes 'ls task started'; ls; #{talk_command} -v agnes 'ls task ended'","ls task ended"]
     end
 
     it 'should create preconfigured hooks for command from .talksrc' do
-      Talks.add_hooks(['bundle']).should == "#{talk_command} -v bad 'Bundle before message'; bundle; #{talk_command} -v bad 'Bundle after message'"
+      Talks.add_hooks(['bundle']).should == ["bundle task started","#{talk_command} -v bad 'Bundle before message'; bundle; #{talk_command} -v bad 'Bundle after message'","bundle task ended"]
     end
 
     it 'should change voice if option sended' do
-      Talks.add_hooks(['-v', 'vicki', 'ls']).should == "#{talk_command} -v vicki 'ls task started'; ls; #{talk_command} -v vicki 'ls task ended'"
+      Talks.add_hooks(['-v', 'vicki', 'ls']).should == ["ls task started","#{talk_command} -v vicki 'ls task started'; ls; #{talk_command} -v vicki 'ls task ended'","ls task ended"]
     end
 
     it 'should change messages if option sended' do
-      Talks.add_hooks(['-bm', 'test', 'ls']).should == "#{talk_command} -v agnes 'test'; ls; #{talk_command} -v agnes 'ls task ended'"
-      Talks.add_hooks(['-am', 'test', 'ls']).should == "#{talk_command} -v agnes 'ls task started'; ls; #{talk_command} -v agnes 'test'"
+      Talks.add_hooks(['-bm', 'test', 'ls']).should == ["ls task started","#{talk_command} -v agnes 'test'; ls; #{talk_command} -v agnes 'ls task ended'","ls task ended"]
+      Talks.add_hooks(['-am', 'test', 'ls']).should == ["ls task started","#{talk_command} -v agnes 'ls task started'; ls; #{talk_command} -v agnes 'test'","ls task ended"]
     end
 
     it 'should create hooks for command inside `bundle exec` by default' do
-      Talks.add_hooks(['bundle', 'exec', 'ls']).should == "#{talk_command} -v agnes 'ls task started'; bundle exec ls; #{talk_command} -v agnes 'ls task ended'"
+      Talks.add_hooks(['bundle', 'exec', 'ls']).should == ["ls task started","#{talk_command} -v agnes 'ls task started'; bundle exec ls; #{talk_command} -v agnes 'ls task ended'","ls task ended"]
     end
 
   end
+
+  describe "#say" do
+    it "should execute command with single quotes" do
+      Talks.should_receive("`")
+      Talks.say "I'm talking like a boss"
+    end
+  end
+
 
 end
