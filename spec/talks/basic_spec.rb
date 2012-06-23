@@ -12,7 +12,7 @@ describe Talks do
 
   it 'should have default methods' do
     [:add_hooks, :info, :error, :success, :warn, :say, :config].each do |method|
-      Talks.methods.include?(method).should be_true
+      Talks.instance_methods.map(&:to_s).include?(method.to_s).should be_true
     end
   end
 
