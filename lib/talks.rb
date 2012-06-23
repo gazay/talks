@@ -39,7 +39,7 @@ module Talks
     end
 
     def notify(message, options = {})
-      Notifier.notify message: message, title: 'Talks', image: ''
+      Notifier.notify(:message => message, :title => 'Talks', :image => '')
     end
 
     def execute(command)
@@ -54,10 +54,12 @@ module Talks
     end
 
     TYPES.each do |type|
-      define_method type do |message = nil, options = {type: type}|
-        message ||= config.message(type)
-        say(message, options)
-      end
+      module_eval <<-RUBY_EVAL,__FILE__,__LINE__ + 1
+        def #{type}(message = nil, options = {:type => :#{type}})
+          message ||= config.message(:#{type})
+          say(message, options)
+        end
+      RUBY_EVAL
     end
 
     private
