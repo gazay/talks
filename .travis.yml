@@ -8,4 +8,5 @@ rvm:
   - rbx-18mode
   - rbx-19mode
 # uncomment this line if your project needs to run something other than `rake`:
+ before_script: touch espeak && chmod a+x espeak && PATH=$PATH:$(pwd)
  script: rake 
