@@ -86,6 +86,12 @@ describe Talks do
       Talks.should_receive("`")
       Talks.say "I'm talking like a boss"
     end
+
+    it 'should show notification if :notify => true options passed' do
+      Talks.stub(:`)
+      Talks.should_receive(:notify).with('Hello there!')
+      Talks.say 'Hello there!', :notify => true
+    end
   end
 
 
