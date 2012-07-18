@@ -88,5 +88,11 @@ describe Talks do
     end
   end
 
+  describe '#notify' do
+    it 'should show growl notifications with default title on Talks.notify' do
+      Notifier.should_receive('notify').with(:message => 'Hello there!', :title => 'Talks', :image => '')
+      Talks.notify 'Hello there!'
+    end
+  end
 
 end
