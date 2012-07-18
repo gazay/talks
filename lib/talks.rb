@@ -39,7 +39,9 @@ module Talks
     end
 
     def notify(message, options = {})
-      Notifier.notify(:message => message, :title => 'Talks', :image => '')
+      Notifier.notify(
+        { :message => message, :title => 'Talks', :image => '' }.merge(options)
+      )
     end
 
     def execute(command)
