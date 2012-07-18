@@ -93,6 +93,11 @@ describe Talks do
       Notifier.should_receive('notify').with(:message => 'Hello there!', :title => 'Talks', :image => '')
       Talks.notify 'Hello there!'
     end
+
+    it 'should use passed options' do
+      Notifier.should_receive('notify').with(:message => 'Hello there!', :title => 'Hello?', :image => 'icon.ico')
+      Talks.notify 'Hello there!', :title => 'Hello?', :image => 'icon.ico'
+    end
   end
 
 end
