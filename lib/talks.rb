@@ -35,9 +35,13 @@ module Talks
     def say(message, options = {})
       abort "Undefined engine: #{engine}" unless ["say","espeak"].include? engine
       type = options[:type] || :default
-      `#{engine} -v #{say_voice(type, options)} "#{message}"`
 
       notify(message) if options[:notify]
+
+      command = [engine, '-v', say_voice(type, options), "#{message}"]
+      command << '&' if options[:detach]
+
+      system command.join(' ')
     end
 
     def notify(message, options = {})
