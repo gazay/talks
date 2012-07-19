@@ -92,6 +92,11 @@ describe Talks do
       Talks.should_receive(:notify).with('Hello there!')
       Talks.say 'Hello there!', :notify => true
     end
+
+    it 'should detach say process if :detach => true option passed' do
+      Talks.should_receive(:`).with(/\s&$/)
+      Talks.say 'Hello there!', :detach => true
+    end
   end
 
   describe '#notify' do
