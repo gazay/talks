@@ -87,7 +87,7 @@ describe Talks do
       Talks.say "I'm talking like a boss"
     end
 
-    it 'should show notification if :notify => true options passed' do
+    it 'should show notification if :notify => true option passed' do
       Talks.stub(:`)
       Talks.should_receive(:notify).with('Hello there!')
       Talks.say 'Hello there!', :notify => true
@@ -95,7 +95,7 @@ describe Talks do
   end
 
   describe '#notify' do
-    it 'should show growl notifications with default title on Talks.notify' do
+    it 'should show growl notification with default title' do
       Notifier.should_receive('notify').with(:message => 'Hello there!', :title => 'Talks', :image => '')
       Talks.notify 'Hello there!'
     end
