@@ -38,7 +38,10 @@ module Talks
 
       notify(message) if options[:notify]
 
-      `#{engine} -v #{say_voice(type, options)} "#{message}"`
+      command = [engine, '-v', say_voice(type, options), "#{message}"]
+      command << '&' if options[:detach]
+
+      `#{command.join(' ')}`
     end
 
     def notify(message, options = {})
