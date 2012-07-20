@@ -40,6 +40,10 @@ You can find some examples of `talks` usage in organization [ruby-talks](https:/
   * [bundler-talks](https://github.com/ruby-talks/bundler-talks)
   * [spec-talks](https://github.com/ruby-talks/spec-talks)
 
+Examples from other people:
+
+  * [Autotesting tool on mocha, guard, rake and talks](https://gist.github.com/3150108) by @kossnocorp
+
 ## How?
 
 On MacOS X this gem is just using the native MacOS X `say` command line tool.
@@ -57,7 +61,12 @@ You can configure default voices and messages for `talks` with `~/.talksrc` file
 ```yml
 default_voice: 'whisper'
 engine: 'say'
-notifier: 'off' # if this option passed - you will not receive notifications at all
+notifier: 'off'            # if this option passed - you will not receive notifications at all
+notifier_options:
+  title: 'Not talks'
+  image: 'path/to/okay.png'
+detach: true               # added ' &' to command line command
+notify_by_default: true    # everytime when you call Talks#say - it will call Talks#notify
 voices:
   info: 'pipe'
 messages:
@@ -218,7 +227,7 @@ I did it myself.
 
 ### A lot of thanks
 
-  * @kossnocorp - for idea with notifiers.
+  * @kossnocorp - for idea with notifiers and his pulls.
 
   * @shime - for grammar fixes in readme and better explanation of my idea.
 
