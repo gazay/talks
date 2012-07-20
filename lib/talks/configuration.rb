@@ -25,11 +25,15 @@ module Talks
       :error   => 'Error'
     }
 
-    attr_accessor :voices, :messages, :default_voice, :options, :engine, :notifier
+    attr_accessor :voices, :messages, :default_voice, :options, :engine, :notifier,
+      :notifier_options, :detach, :notify_by_default
 
     def initialize(opts)
       @options = symbolize_hash_keys(opts)
       @engine = options[:engine] || default_engine_for_os
+      @notifier_options = options[:notifier_options] || {}
+      @detach = options[:detach]
+      @notify_by_default = options[:notify_by_default]
       @default_voice = options[:default_voice] || default_voice_for(engine)
       @voices = options[:voices] && DEFAULT_VOICES[engine.to_sym].merge(options[:voices]) ||
         DEFAULT_VOICES[engine.to_sym]

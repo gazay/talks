@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 0.4.0
+
+  * Added options for Talks#say: :notify, :detach (@kossnocorp)
+  * Talks#notify more smart - get options for notifier (title, image, etc) (@kossnocorp)
+
+## 0.3.0
+
+  * Added notifier support (thanks to @kossnocorp)
+
 ## 0.2.0
 
   * Added espeak support

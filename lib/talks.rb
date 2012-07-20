@@ -36,18 +36,26 @@ module Talks
       abort "Undefined engine: #{engine}" unless ["say","espeak"].include? engine
       type = options[:type] || :default
 
-      notify(message) if options[:notify]
+      notify(message) if options[:notify] || config.notify_by_default
 
       command = [engine, '-v', say_voice(type, options), "#{message}"]
-      command << '&' if options[:detach]
+      command << '&' if options[:detach] || config.detach
 
       system command.join(' ')
     end
 
     def notify(message, options = {})
-      Notifier.notify(
-        { :message => message, :title => 'Talks', :image => '' }.merge(options)
-      )
+      opts = \
+        {
+          :message => message,
+          :title => 'Talks',
+          :image => ''
+        }
+
+      opts.merge! config.notifier_options if config.notifier_options
+      opts.merge!(options)
+
+      Notifier.notify opts
     end
 
     def execute(command)

@@ -1,4 +1,9 @@
 default_voice: 'agnes'
+notify_by_default: true
+notifier_options:
+  title: 'Something'
+  image: 'icon.png'
+detach: true
 bundle:
   voice: 'bad'
   before_message: 'Bundle before message'

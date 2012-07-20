@@ -93,6 +93,12 @@ describe Talks do
       Talks.say 'Hello there!', :notify => true
     end
 
+    it 'should not detach say process if detach: false option passed' do
+      Talks.config.detach = nil
+      Talks.should_receive(:system).with(/!$/)
+      Talks.say 'Hello there!'
+    end
+
     it 'should detach say process if :detach => true option passed' do
       Talks.should_receive(:system).with(/\s&$/)
       Talks.say 'Hello there!', :detach => true
@@ -101,7 +107,7 @@ describe Talks do
 
   describe '#notify' do
     it 'should show growl notification with default title' do
-      Notifier.should_receive('notify').with(:message => 'Hello there!', :title => 'Talks', :image => '')
+      Notifier.should_receive('notify').with({ :message => 'Hello there!' }.merge Talks.config.notifier_options)
       Talks.notify 'Hello there!'
     end
 
