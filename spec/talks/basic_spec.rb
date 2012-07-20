@@ -83,19 +83,24 @@ describe Talks do
 
   describe "#say" do
     it "should execute command with single quotes" do
-      Talks.should_receive("`")
+      Talks.should_receive(:system)
       Talks.say "I'm talking like a boss"
     end
 
-    it 'should show notification if :notify => true options passed' do
-      Talks.stub(:`)
+    it 'should show notification if :notify => true option passed' do
+      Talks.stub(:system)
       Talks.should_receive(:notify).with('Hello there!')
       Talks.say 'Hello there!', :notify => true
+    end
+
+    it 'should detach say process if :detach => true option passed' do
+      Talks.should_receive(:system).with(/\s&$/)
+      Talks.say 'Hello there!', :detach => true
     end
   end
 
   describe '#notify' do
-    it 'should show growl notifications with default title on Talks.notify' do
+    it 'should show growl notification with default title' do
       Notifier.should_receive('notify').with(:message => 'Hello there!', :title => 'Talks', :image => '')
       Talks.notify 'Hello there!'
     end
