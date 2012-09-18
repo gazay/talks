@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['gazay']
   s.email       = ['alex.gaziev@gmail.com']
-  s.homepage    = "https://github.com/ruby-talks/talks"
+  s.homepage    = "https://github.com/gazay/talks"
   s.summary     = %q{Gem for talking ruby code and command-line tools}
   s.description = %q{This gem can be used for wraping command-lines with `talks` command or for adding hooks in ruby code which would tell you something}
 

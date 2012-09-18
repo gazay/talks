@@ -1,6 +1,6 @@
 # Talks gem — now your ruby and command-line tools can talk with you
 
-### Build Status ![http://travis-ci.org/ruby-talks/talks](https://secure.travis-ci.org/ruby-talks/talks.png)
+### Build Status ![http://travis-ci.org/gazay/talks](https://secure.travis-ci.org/gazay/talks.png)
 
 If you want to HEAR some response from your code or command-line tools, just use this gem.
 
@@ -13,11 +13,11 @@ find what notifier you want to use - there is support for every OS!
 
 I added in all sections of this readme notes about usage notifier
 functionality. And small
-[readme](https://github.com/ruby-talks/talks#using-talks-with-growl) about usage with Growl notifier.
+[readme](https://github.com/gazay/talks#using-talks-with-growl) about usage with Growl notifier.
 
 ### Here is a small [screencast](http://www.youtube.com/watch?v=PaUpwQMBvOY) about talks
 
-Soon we will finish the [wiki](https://github.com/ruby-talks/talks/wiki) and it will be (I hope) delimited and clear for understand.
+Soon we will finish the [wiki](https://github.com/gazay/talks/wiki) and it will be (I hope) delimited and clear for understand.
 
 Sponsored by Evil Martians <http://evilmartians.com>
 
@@ -51,7 +51,7 @@ On linix/unix this gem is using espeak speech synthesis.
 
 For notifications this gem uses [notifier](https://github.com/fnando/notifier/blob/master/README.rdoc) gem.
 
-### In all examples below I've used MacOS X voice types. For espeak you can read section [Using talks with espeak](https://github.com/ruby-talks/talks#using-talks-with-espeak)
+### In all examples below I've used MacOS X voice types. For espeak you can read section [Using talks with espeak](https://github.com/gazay/talks#using-talks-with-espeak)
 
 ### Configuration
 
