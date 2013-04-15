@@ -30,15 +30,8 @@ module Talks
 
     def initialize(opts)
       @options = symbolize_hash_keys(opts)
-      @engine = options[:engine] || default_engine_for_os
-      @notifier_options = options[:notifier_options] || {}
-      @detach = options[:detach]
-      @notify_by_default = options[:notify_by_default]
-      @default_voice = options[:default_voice] || default_voice_for(engine)
-      @voices = options[:voices] && DEFAULT_VOICES[engine.to_sym].merge(options[:voices]) ||
-        DEFAULT_VOICES[engine.to_sym]
-      @messages = options[:messages] && DEFAULT_MESSAGES.merge(options[:messages]) ||
-        DEFAULT_MESSAGES
+
+      set_default_options
     end
 
     def voice(type)
@@ -57,10 +50,16 @@ module Talks
       "#{command_name} task #{position == :before ? 'started' : 'ended'}"
     end
 
-    def message_for(command_name, position = :after)
+    def message_for(command_name, position = :after, kind = 'message')
       command = command_name.to_sym
-      options[command] &&
-        options[command][(position == :before ? :before_message : :after_message)]
+      message = \
+        position == :before ? "before_#{kind}" : "after_#{kind}"
+
+      options[command][message.to_sym] if options[command]
+    end
+
+    def notify_message_for(command_name, position = :after)
+      message_for(command_name, position, 'notify')
     end
 
     def notifier_for(command_name)
@@ -73,12 +72,6 @@ module Talks
         )
     end
 
-    def notify_message_for(command_name, position = :after)
-      command = command_name.to_sym
-      options[command] &&
-        options[command][(position == :before ? :before_notify : :after_notify)]
-    end
-
     def voice_for(command_name)
       command = command_name.to_sym
       options[command] &&
@@ -86,6 +79,28 @@ module Talks
     end
 
     private
+
+    def set_default_options
+      @engine            = options[:engine] || default_engine_for_os
+      @notifier_options  = options[:notifier_options] || {}
+      @detach            = options[:detach]
+      @notify_by_default = options[:notify_by_default]
+      @default_voice     = options[:default_voice] || default_voice_for(engine)
+      @voices            = voice_options
+      @messages          = messages_options
+    end
+
+    def voice_options
+      options[:voices] &&
+        DEFAULT_VOICES[engine.to_sym].merge(options[:voices]) ||
+        DEFAULT_VOICES[engine.to_sym]
+    end
+
+    def messages_options
+      options[:messages] &&
+        DEFAULT_MESSAGES.merge(options[:messages]) ||
+        DEFAULT_MESSAGES
+    end
 
     def default_voice_for(talks_engine)
       case talks_engine
