@@ -1,6 +1,6 @@
 # Talks gem — now your ruby and command-line tools can talk with you
 
-### Build Status ![http://travis-ci.org/gazay/talks](https://secure.travis-ci.org/gazay/talks.png)
+### Build Status ![http://travis-ci.org/gazay/talks](https://secure.travis-ci.org/gazay/talks.png) ![https://codeclimate.com/github/gazay/talks](https://codeclimate.com/github/gazay/talks.png)
 
 If you want to HEAR some response from your code or command-line tools, just use this gem.
 

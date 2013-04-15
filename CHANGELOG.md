@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.4.1
+
+  * Refactoring and codeclimate added
+
 ## 0.4.0
 
   * Added options for Talks#say: :notify, :detach (@kossnocorp)
