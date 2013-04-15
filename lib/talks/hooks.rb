@@ -1,3 +1,10 @@
+require File.expand_path('../hooks/base', __FILE__)
+require File.expand_path('../hooks/voice', __FILE__)
+require File.expand_path('../hooks/before_message', __FILE__)
+require File.expand_path('../hooks/after_message', __FILE__)
+require File.expand_path('../hooks/before_notify', __FILE__)
+require File.expand_path('../hooks/after_notify', __FILE__)
+
 module Talks
   module Hooks
     class << self
@@ -42,32 +49,18 @@ module Talks
         end
       end
 
-      def parse(options, command_name)
-        voice = options['-v'] || options['--voice'] ||
-          Talks.config.voice_for(command_name.to_sym) ||
-          Talks.config.default_voice
+      def parse(opts, cmd)
+        voice = Talks::Hooks::Voice.to_hook opts, cmd
 
-        before_message = options['-bm'] || options['--before-message'] ||
-          Talks.config.message_for(command_name, :before) ||
-          Talks.config.default_message_for(command_name, :before)
+        before_message = Talks::Hooks::BeforeMessage.to_hook opts, cmd
 
-        after_message = options['-am'] || options['--after-message'] ||
-          Talks.config.message_for(command_name, :after) ||
-          Talks.config.default_message_for(command_name, :after)
+        after_message = Talks::Hooks::AfterMessage.to_hook opts, cmd
 
-        before_notify = Talks.config.notifier_for(command_name) &&
-          (
-            options['-bn'] || options['--before-notify'] ||
-            Talks.config.notify_message_for(command_name, :before) ||
-            Talks.config.default_message_for(command_name, :before)
-          )
+        before_notify = Talks.config.notifier_for(cmd) &&
+          Talks::Hooks::BeforeNotify.to_hook(opts, cmd)
 
-        after_notify = Talks.config.notifier_for(command_name) &&
-          (
-            options['-an'] || options['--after-notify'] ||
-            Talks.config.notify_message_for(command_name, :after) ||
-            Talks.config.default_message_for(command_name, :after)
-          )
+        after_notify = Talks.config.notifier_for(cmd) &&
+          Talks::Hooks::AfterNotify.to_hook(opts, cmd)
 
         [voice, before_message, after_message, before_notify, after_notify]
       end

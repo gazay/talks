@@ -1,5 +1,6 @@
 require File.expand_path('../talks/configuration.rb', __FILE__)
 require File.expand_path('../talks/hooks.rb', __FILE__)
+
 require 'notifier'
 
 module Talks
