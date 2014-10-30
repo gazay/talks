@@ -10,109 +10,136 @@ end
 
 describe Talks do
 
-  it 'should have default methods' do
+  it 'has default methods' do
     [:add_hooks, :info, :error, :success, :warn, :say, :config].each do |method|
-      Talks.instance_methods.map(&:to_s).include?(method.to_s).should be_true
+      expect(Talks.instance_methods.map(&:to_s)).to include(method.to_s)
     end
   end
 
   describe '#config' do
 
-    it 'should load initfile' do
-      Talks.config.options.should_not be_empty
+    it 'loads initfile' do
+      expect(Talks.config.options).to_not be_empty
     end
 
-    it 'should load default values from initfile' do
-      Talks.config.default_voice.should == 'agnes'
+    it 'loads default values from initfile' do
+      expect(Talks.config.default_voice).to eq('agnes')
     end
 
-    it 'should contain default values for voices and messages' do
-      Talks.config.voices.keys.should_not be_empty
-      Talks.config.messages.keys.should_not be_empty
+    it 'contains default values for voices and messages' do
+      expect(Talks.config.voices.keys).to_not be_empty
+      expect(Talks.config.messages.keys).to_not be_empty
     end
 
-    it 'should return voice for type' do
-      Talks.config.voice(:info).should == 'vicki' if talk_command == 'say'
-      Talks.config.voice(:info).should == 'en+f3' if talk_command == 'espeak'
+    it 'returns voice for type' do
+      expect(Talks.config.voice(:info)).to eq('vicki') if talk_command == 'say'
+      expect(Talks.config.voice(:info)).to eq('en+f3') if talk_command == 'espeak'
     end
 
-    it 'should return message for type' do
-      Talks.config.message(:info).should == 'Information note'
+    it 'returns message for type' do
+      expect(Talks.config.message(:info)).to eq('Information note')
     end
 
-    it 'should return message for command if it is in .talksrc' do
-      Talks.config.message_for(:bundle, :before).should == 'Bundle before message'
-      Talks.config.message_for(:bundle, :after).should == 'Bundle after message'
+    it 'returns message for command if it is in .talksrc' do
+      expect(Talks.config.message_for(:bundle, :before)).to eq('Bundle before message')
+      expect(Talks.config.message_for(:bundle, :after)).to eq('Bundle after message')
     end
 
-    it 'should return voice for command if it is in .talksrc' do
-      Talks.config.voice_for(:bundle).should == 'bad'
+    it 'returns voice for command if it is in .talksrc' do
+      expect(Talks.config.voice_for(:bundle)).to eq('bad')
     end
 
-    it 'should return default message for command' do
-      Talks.config.default_message_for(:bundle, :before).should == 'bundle task started'
-      Talks.config.default_message_for(:bundle, :after).should == 'bundle task ended'
+    it 'returns default message for command' do
+      expect(Talks.config.default_message_for(:bundle, :before)).to eq('bundle task started')
+      expect(Talks.config.default_message_for(:bundle, :after)).to eq('bundle task ended')
     end
 
   end
 
   context 'hooks' do
 
-    it 'should create hooks for any command by default' do
-      Talks.add_hooks(['ls']).should == ["ls task started","#{talk_command} -v agnes 'ls task started'; ls; #{talk_command} -v agnes 'ls task ended'","ls task ended"]
+    it 'creates hooks for any command by default' do
+      expect(Talks.add_hooks(['ls'])).to eq([
+        "ls task started",
+        "#{talk_command} -v agnes 'ls task started'; ls; #{talk_command} -v agnes 'ls task ended'",
+        "ls task ended"
+      ])
     end
 
-    it 'should create preconfigured hooks for command from .talksrc' do
-      Talks.add_hooks(['bundle']).should == ["bundle task started","#{talk_command} -v bad 'Bundle before message'; bundle; #{talk_command} -v bad 'Bundle after message'","bundle task ended"]
+    it 'creates preconfigured hooks for command from .talksrc' do
+      expect(Talks.add_hooks(['bundle'])).to eq([
+        "bundle task started",
+        "#{talk_command} -v bad 'Bundle before message'; bundle; #{talk_command} -v bad 'Bundle after message'",
+        "bundle task ended"
+      ])
     end
 
-    it 'should change voice if option sended' do
-      Talks.add_hooks(['-v', 'vicki', 'ls']).should == ["ls task started","#{talk_command} -v vicki 'ls task started'; ls; #{talk_command} -v vicki 'ls task ended'","ls task ended"]
+    it 'changes voice if option sended' do
+      expect(Talks.add_hooks(['-v', 'vicki', 'ls'])).to eq([
+        "ls task started",
+        "#{talk_command} -v vicki 'ls task started'; ls; #{talk_command} -v vicki 'ls task ended'",
+        "ls task ended"
+      ])
     end
 
-    it 'should change messages if option sended' do
-      Talks.add_hooks(['-bm', 'test', 'ls']).should == ["ls task started","#{talk_command} -v agnes 'test'; ls; #{talk_command} -v agnes 'ls task ended'","ls task ended"]
-      Talks.add_hooks(['-am', 'test', 'ls']).should == ["ls task started","#{talk_command} -v agnes 'ls task started'; ls; #{talk_command} -v agnes 'test'","ls task ended"]
+    it 'changes before message if option sended' do
+      expect(Talks.add_hooks(['-bm', 'test', 'ls'])).to eq([
+        "ls task started",
+        "#{talk_command} -v agnes 'test'; ls; #{talk_command} -v agnes 'ls task ended'",
+        "ls task ended"
+      ])
     end
 
-    it 'should create hooks for command inside `bundle exec` by default' do
-      Talks.add_hooks(['bundle', 'exec', 'ls']).should == ["ls task started","#{talk_command} -v agnes 'ls task started'; bundle exec ls; #{talk_command} -v agnes 'ls task ended'","ls task ended"]
+    it 'changes after message if option sended' do
+      expect(Talks.add_hooks(['-am', 'test', 'ls'])).to eq([
+        "ls task started",
+        "#{talk_command} -v agnes 'ls task started'; ls; #{talk_command} -v agnes 'test'",
+        "ls task ended"
+      ])
+    end
+
+    it 'creates hooks for command inside `bundle exec` by default' do
+      expect(Talks.add_hooks(['bundle', 'exec', 'ls'])).to eq([
+        "ls task started",
+        "#{talk_command} -v agnes 'ls task started'; bundle exec ls; #{talk_command} -v agnes 'ls task ended'",
+        "ls task ended"
+      ])
     end
 
   end
 
   describe "#say" do
-    it "should execute command with single quotes" do
-      Talks.should_receive(:system)
+    it "executes command with single quotes" do
+      expect(Talks).to receive(:system)
       Talks.say "I'm talking like a boss"
     end
 
-    it 'should show notification if :notify => true option passed' do
+    it 'shows notification if :notify => true option passed' do
       Talks.stub(:system)
-      Talks.should_receive(:notify).with('Hello there!')
+      expect(Talks).to receive(:notify).with('Hello there!')
       Talks.say 'Hello there!', :notify => true
     end
 
-    it 'should not detach say process if detach: false option passed' do
+    it 'not detaches say process if detach: false option passed' do
       Talks.config.detach = nil
-      Talks.should_receive(:system).with(/!$/)
+      expect(Talks).to receive(:system).with(/!$/)
       Talks.say 'Hello there!'
     end
 
-    it 'should detach say process if :detach => true option passed' do
-      Talks.should_receive(:system).with(/\s&$/)
+    it 'detaches say process if :detach => true option passed' do
+      expect(Talks).to receive(:system).with(/\s&$/)
       Talks.say 'Hello there!', :detach => true
     end
   end
 
   describe '#notify' do
-    it 'should show growl notification with default title' do
-      Notifier.should_receive('notify').with({ :message => 'Hello there!' }.merge Talks.config.notifier_options)
+    it 'shows growl notification with default title' do
+      expect(Notifier).to receive('notify').with({ :message => 'Hello there!' }.merge Talks.config.notifier_options)
       Talks.notify 'Hello there!'
     end
 
-    it 'should use passed options' do
-      Notifier.should_receive('notify').with(:message => 'Hello there!', :title => 'Hello?', :image => 'icon.ico')
+    it 'uses passed options' do
+      expect(Notifier).to receive('notify').with(:message => 'Hello there!', :title => 'Hello?', :image => 'icon.ico')
       Talks.notify 'Hello there!', :title => 'Hello?', :image => 'icon.ico'
     end
   end
