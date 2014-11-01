@@ -115,7 +115,7 @@ describe Talks do
     end
 
     it 'shows notification if :notify => true option passed' do
-      Talks.stub(:system)
+      expect(Talks).to receive(:system)
       expect(Talks).to receive(:notify).with('Hello there!')
       Talks.say 'Hello there!', :notify => true
     end

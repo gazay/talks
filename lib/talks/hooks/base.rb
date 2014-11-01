@@ -10,7 +10,8 @@ module Talks
         def message_name; :before; end
 
         def to_hook(opts, cmd)
-          opts[one_dash_argv] || opts[two_dashes_argv] ||
+          opts[one_dash_argv] ||
+            opts[two_dashes_argv] ||
             Talks.config.send(message_method, cmd, message_name) ||
             Talks.config.send(default_message_method, cmd, message_name)
         end

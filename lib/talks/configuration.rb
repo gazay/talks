@@ -52,8 +52,7 @@ module Talks
 
     def message_for(command_name, position = :after, kind = 'message')
       command = command_name.to_sym
-      message = \
-        position == :before ? "before_#{kind}" : "after_#{kind}"
+      message = position == :before ? "before_#{kind}" : "after_#{kind}"
 
       options[command][message.to_sym] if options[command]
     end
@@ -74,18 +73,17 @@ module Talks
 
     def voice_for(command_name)
       command = command_name.to_sym
-      options[command] &&
-        options[command][:voice]
+      options[command] && options[command][:voice]
     end
 
     private
 
     def set_default_options
-      @engine            = options[:engine] || default_engine_for_os
-      @notifier_options  = options[:notifier_options] || {}
+      @engine            = options.fetch(:engine, default_engine_for_os)
+      @notifier_options  = options.fetch(:notifier_options, {})
       @detach            = options[:detach]
       @notify_by_default = options[:notify_by_default]
-      @default_voice     = options[:default_voice] || default_voice_for(engine)
+      @default_voice     = options.fetch(:default_voice, default_voice_for(engine))
       @voices            = voice_options
       @messages          = messages_options
     end
@@ -125,9 +123,8 @@ module Talks
 
     def symbolize_hash_keys(opts)
       sym_opts = {}
-      opts.each do |key, value|
-        sym_opts[key.to_sym] = \
-          value.is_a?(Hash) ? symbolize_hash_keys(value) : value
+      opts.each do |k, v|
+        sym_opts[k.to_sym] = v.is_a?(Hash) ? symbolize_hash_keys(v) : v
       end
       sym_opts
     end

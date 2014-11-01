@@ -12,9 +12,9 @@ module Talks
 
       def create(args)
         options, args = shift_options(args.dup)
-        command_name = command args
+        command_name = command(args)
         voice, before_message, after_message, before_notify, after_notify = \
-          parse options, command_name
+          parse(options, command_name)
 
         before_hook = hook(voice, before_message)
         after_hook = hook(voice, after_message)

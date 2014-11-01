@@ -8,8 +8,10 @@ module Talks
         def two_dashes_argv; '--voice'; end
 
         def to_hook(opts, cmd)
-          opts[one_dash_argv] || opts[two_dashes_argv] ||
-            Talks.config.voice_for(cmd.to_sym) || Talks.config.default_voice
+          opts[one_dash_argv] ||
+            opts[two_dashes_argv] ||
+            Talks.config.voice_for(cmd.to_sym) ||
+            Talks.config.default_voice
         end
 
       end
