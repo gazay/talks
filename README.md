@@ -19,7 +19,9 @@ functionality. And small
 
 Soon we will finish the [wiki](https://github.com/gazay/talks/wiki) and it will be (I hope) delimited and clear for understand.
 
-Sponsored by Evil Martians <http://evilmartians.com>
+<a href="https://evilmartians.com/?utm_source=talks">
+<img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg" alt="Sponsored by Evil Martians" width="236" height="54">
+</a>
 
 ## Why?
 
