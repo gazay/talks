@@ -214,7 +214,7 @@ If it's ok for you - you need to do several steps for using talks with Growl:
 Now you can use talks with Growl support:
 
 ```bash
-$: talking -bn 'This is before notification wich will shown with growl' ls -la
+$: talking -bn 'This is before notification which is shown with growl' ls -la
 ```
 
 Here is the [screenshot](http://cl.ly/0K3V2F0A1C3O2z1q0923).
